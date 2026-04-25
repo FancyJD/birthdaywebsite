@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Birthday Adithyaaa ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(to right, #fbc2eb, #fcd5ce);
+  overflow-x: hidden;
+  text-align: center;
+}
+
+h1, h2 {
+  font-family: 'Great Vibes', cursive;
+}
+
+.box {
+  background: #ffe5d9;
+  padding: 20px;
+  border-radius: 15px;
+  display: inline-block;
+  min-width: 300px;
+}
+
+.heart {
+  position: fixed;
+  top: -10px;
+  font-size: 14px;
+  animation: fall linear infinite;
+}
+@keyframes fall {
+  to { transform: translateY(110vh); }
+}
+
+.star {
+  position: fixed;
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+  animation: twinkle 3s infinite;
+}
+@keyframes twinkle {
+  0%,100%{opacity:0.2;}
+  50%{opacity:1;}
+}
+
+.balloon {
+  position: fixed;
+  bottom: -100px;
+  width: 30px;
+  height: 40px;
+  border-radius: 50%;
+  animation: rise 10s linear infinite;
+}
+.balloon::after {
+  content: "";
+  width: 2px;
+  height: 30px;
+  background: gray;
+  position: absolute;
+  left: 50%;
+  top: 40px;
+}
+@keyframes rise {
+  to { transform: translateY(-120vh); }
+}
+
+.page {
+  display: none;
+  height: 100vh;
+  padding: 40px;
+}
+.active {
+  display: block;
+}
+
+.envelope {
+  width: 160px;
+  height: 110px;
+  background: pink;
+  margin: 20px auto;
+  border-radius: 10px;
+  position: relative;
+}
+.envelope::before {
+  content: "❤️";
+  font-size: 28px;
+  position: absolute;
+  top: 35px;
+  left: 65px;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  background: #ff6f91;
+  color: white;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.option {
+  margin: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  background: #ffe5d9;
+  cursor: pointer;
+}
+.correct { background: lightgreen; }
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 10px;
+}
+.card { perspective: 1000px; }
+.inner {
+  position: relative;
+  width: 100%;
+  height: 120px;
+  transform-style: preserve-3d;
+  transition: 0.6s;
+}
+.card.flip .inner { transform: rotateY(180deg); }
+
+.front, .back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+.back {
+  transform: rotateY(180deg);
+}
+
+.front {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#ffe5d9;
+  font-weight: bold;
+}
+
+.letter {
+  background: #ffe5d9;
+  padding: 20px;
+  border-radius: 15px;
+  max-width: 500px;
+  margin:auto;
+}
+
+.firework {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  animation: explode 1s ease-out forwards;
+}
+@keyframes explode {
+  from { transform: scale(1); opacity:1;}
+  to { transform: scale(15); opacity:0;}
+}
+</style>
+</head>
+
+<body>
+
+<audio src="music.mp3" autoplay loop></audio>
+
+<div class="page active" id="page1">
+  <h1>Happy Birthday Adithyaaa ❤️</h1>
+  <div class="envelope"></div>
+  <button onclick="startGame()">Click here for a short game</button>
+</div>
+
+<div class="page" id="quizPage">
+  <div class="box">
+    <h2 id="question"></h2>
+    <div id="options"></div>
+  </div>
+</div>
+
+<div class="page" id="galleryPage">
+  <h2>Sweet Memories❤️</h2>
+  <div class="gallery" id="gallery"></div>
+</div>
+
+<div class="page" id="letterPage">
+  <div class="letter">
+    <h2>A Special Letter💌</h2>
+    <p>(Hi chakaniii 😊💖<br><br>
+You’ve come so far in life, and it’s honestly amazing to see ✨<br><br>
+From your first milestones to everything you’re achieving now 🌟<br>
+you keep growing stronger and better every single day 💫 without giving up<br><br>
+Keep believing in yourself💖<br>
+Stay happy always❤️<br>
+With Love,<br>
+..........❤️)</p>
+  </div>
+</div>
+
+<script>
+
+/* same effects code unchanged */
+
+let images=[
+"img1.jpg","img2.jpg","img3.jpg",
+"img4.jpg","img5.jpg","img6.jpg",
+"img7.jpg","img8.jpg","img9.jpg",
+"img10.jpg","img11.jpg","img12.jpg"
+];
+
+let messages=[
+"Cutiepie💖","Reminiscence😄","Friends by heart😊",
+"Koluthipoduvom gang🔥😄","Forever college memories🌟","Initial Career journey💫",
+"Infosys days✨", "first bike❤️", "You with your love 💖",
+"TCS fam 🌟","Selenophile🌙","Breezy beach🌊"
+];
+
+function loadGallery(){
+  let g=document.getElementById("gallery");
+  g.innerHTML="";
+
+  images.forEach((img,i)=>{
+    let card=document.createElement("div");
+    card.className="card";
+
+    let inner=document.createElement("div");
+    inner.className="inner";
+
+    inner.innerHTML=`
+      <div class="front">${messages[i]}</div>
+      <div class="back"><img src="${img}" width="100%" height="100%"></div>
+    `;
+
+    card.onclick=()=>{
+      card.classList.toggle("flip");
+      setTimeout(()=>{
+        if(i===images.length-1){
+          showPage("letterPage");
+        }
+      },800);
+    };
+
+    card.appendChild(inner);
+    g.appendChild(card);
+  });
+}
+
+</script>
+
+</body>
+</html>
