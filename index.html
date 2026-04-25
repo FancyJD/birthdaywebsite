@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <title>Happy Birthday Adithyaaa ❤️</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap" rel="stylesheet">
 
 <style>
 body {
@@ -15,10 +15,12 @@ body {
   text-align: center;
 }
 
+/* HEADINGS NORMAL FONT */
 h1, h2 {
-  font-family: 'Great Vibes', cursive;
+  font-family: 'Poppins', sans-serif;
 }
 
+/* PEACH BOX */
 .box {
   background: #ffe5d9;
   padding: 20px;
@@ -27,6 +29,7 @@ h1, h2 {
   min-width: 300px;
 }
 
+/* HEARTS */
 .heart {
   position: fixed;
   top: -10px;
@@ -37,6 +40,7 @@ h1, h2 {
   to { transform: translateY(110vh); }
 }
 
+/* STARS */
 .star {
   position: fixed;
   width: 2px;
@@ -50,6 +54,7 @@ h1, h2 {
   50%{opacity:1;}
 }
 
+/* BALLOONS */
 .balloon {
   position: fixed;
   bottom: -100px;
@@ -71,15 +76,15 @@ h1, h2 {
   to { transform: translateY(-120vh); }
 }
 
+/* PAGES */
 .page {
   display: none;
   height: 100vh;
   padding: 40px;
 }
-.active {
-  display: block;
-}
+.active { display: block; }
 
+/* ENVELOPE */
 .envelope {
   width: 160px;
   height: 110px;
@@ -96,6 +101,7 @@ h1, h2 {
   left: 65px;
 }
 
+/* BUTTON */
 button {
   padding: 10px 20px;
   border: none;
@@ -105,6 +111,7 @@ button {
   cursor: pointer;
 }
 
+/* OPTIONS */
 .option {
   margin: 10px;
   padding: 10px;
@@ -114,6 +121,7 @@ button {
 }
 .correct { background: lightgreen; }
 
+/* GALLERY */
 .gallery {
   display: grid;
   grid-template-columns: repeat(3,1fr);
@@ -137,16 +145,13 @@ button {
 }
 .back {
   transform: rotateY(180deg);
-}
-
-.front {
+  background: #ffe5d9;
   display:flex;
   align-items:center;
   justify-content:center;
-  background:#ffe5d9;
-  font-weight: bold;
 }
 
+/* LETTER */
 .letter {
   background: #ffe5d9;
   padding: 20px;
@@ -155,6 +160,7 @@ button {
   margin:auto;
 }
 
+/* FIREWORK */
 .firework {
   position: fixed;
   width: 6px;
@@ -173,12 +179,14 @@ button {
 
 <audio src="music.mp3" autoplay loop></audio>
 
+<!-- PAGE 1 -->
 <div class="page active" id="page1">
   <h1>Happy Birthday Adithyaaa ❤️</h1>
   <div class="envelope"></div>
   <button onclick="startGame()">Click here for a short game</button>
 </div>
 
+<!-- QUIZ -->
 <div class="page" id="quizPage">
   <div class="box">
     <h2 id="question"></h2>
@@ -186,11 +194,13 @@ button {
   </div>
 </div>
 
+<!-- GALLERY -->
 <div class="page" id="galleryPage">
   <h2>Sweet Memories❤️</h2>
   <div class="gallery" id="gallery"></div>
 </div>
 
+<!-- LETTER -->
 <div class="page" id="letterPage">
   <div class="letter">
     <h2>A Special Letter💌</h2>
@@ -207,50 +217,135 @@ With Love,<br>
 
 <script>
 
-/* same effects code unchanged */
+/* HEARTS */
+setInterval(()=>{
+  let h=document.createElement("div");
+  h.className="heart";
+  h.innerText="❤️";
+  h.style.left=Math.random()*100+"vw";
+  h.style.animationDuration=(4+Math.random()*4)+"s";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),8000);
+},400);
 
-let images=[
-"img1.jpg","img2.jpg","img3.jpg",
-"img4.jpg","img5.jpg","img6.jpg",
-"img7.jpg","img8.jpg","img9.jpg",
-"img10.jpg","img11.jpg","img12.jpg"
+/* STARS */
+for(let i=0;i<20;i++){
+  let s=document.createElement("div");
+  s.className="star";
+  s.style.left=Math.random()*100+"vw";
+  s.style.top=Math.random()*100+"vh";
+  s.style.animationDelay=Math.random()*3+"s";
+  document.body.appendChild(s);
+}
+
+/* BALLOONS */
+function createBalloons(){
+  for(let i=0;i<5;i++){
+    let b=document.createElement("div");
+    b.className="balloon";
+    b.style.left=Math.random()*100+"vw";
+    b.style.background=["#ff6f91","#ff9671","#ffc75f","#f9f871"][Math.floor(Math.random()*4)];
+    b.style.animationDuration=(8+Math.random()*5)+"s";
+    document.body.appendChild(b);
+    setTimeout(()=>b.remove(),12000);
+  }
+}
+
+/* QUESTIONS FIXED */
+let questions=[
+{
+q:"Can you guess the year you started working at Infosys (your first MNC)?",
+options:["January 2018","October 2019","March 2020","December 2021"],
+correct:"October 2019"
+},
+{
+q:"So, tell me when did the love of your life arrived? Relax, I’m talking about your first bike😉",
+options:["January 2020","August 2022","December 2020","April 2021"],
+correct:"April 2021"
+},
+{
+q:"Great! Now, can you guess the year you started your journey at TCS (your second MNC)?",
+options:["September 2022","July 2021","Jan 2023","Dec 2022"],
+correct:"September 2022"
+}
 ];
 
-let messages=[
-"Cutiepie💖","Reminiscence😄","Friends by heart😊",
-"Koluthipoduvom gang🔥😄","Forever college memories🌟","Initial Career journey💫",
-"Infosys days✨", "first bike❤️", "You with your love 💖",
-"TCS fam 🌟","Selenophile🌙","Breezy beach🌊"
-];
+let index=0;
 
-function loadGallery(){
-  let g=document.getElementById("gallery");
-  g.innerHTML="";
+function startGame(){
+  showPage("quizPage");
+  createBalloons();
+  loadQuestion();
+}
 
-  images.forEach((img,i)=>{
-    let card=document.createElement("div");
-    card.className="card";
+function typeText(text,el){
+  el.innerHTML="";
+  let i=0;
+  let interval=setInterval(()=>{
+    el.innerHTML+=text[i];
+    i++;
+    if(i>=text.length) clearInterval(interval);
+  },35);
+}
 
-    let inner=document.createElement("div");
-    inner.className="inner";
+function loadQuestion(){
+  let q=questions[index];
+  typeText(q.q,document.getElementById("question"));
 
-    inner.innerHTML=`
-      <div class="front">${messages[i]}</div>
-      <div class="back"><img src="${img}" width="100%" height="100%"></div>
-    `;
+  let optDiv=document.getElementById("options");
+  optDiv.innerHTML="";
 
-    card.onclick=()=>{
-      card.classList.toggle("flip");
-      setTimeout(()=>{
-        if(i===images.length-1){
-          showPage("letterPage");
-        }
-      },800);
+  q.options.forEach(opt=>{
+    let btn=document.createElement("div");
+    btn.className="option";
+    btn.innerText=opt;
+
+    btn.onclick=()=>{
+      if(opt===q.correct){
+        firework();
+        createBalloons();
+        next();
+      } else {
+        document.querySelectorAll(".option").forEach(o=>{
+          if(o.innerText===q.correct){
+            o.classList.add("correct");
+          }
+        });
+        setTimeout(next,1500);
+      }
     };
 
-    card.appendChild(inner);
-    g.appendChild(card);
+    optDiv.appendChild(btn);
   });
+}
+
+function next(){
+  index++;
+  if(index<questions.length){
+    loadQuestion();
+  } else {
+    loadGallery();
+    showPage("galleryPage");
+    createBalloons();
+  }
+}
+
+function firework(){
+  for(let i=0;i<30;i++){
+    let f=document.createElement("div");
+    f.className="firework";
+    f.style.left=Math.random()*100+"vw";
+    f.style.top=Math.random()*100+"vh";
+    f.style.background=["#ff0","#ff6f91","#fff","#ffd700"][Math.floor(Math.random()*4)];
+    document.body.appendChild(f);
+    setTimeout(()=>f.remove(),1000);
+  }
+}
+
+/* PAGE SWITCH */
+function showPage(id){
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
 }
 
 </script>
