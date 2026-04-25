@@ -349,6 +349,53 @@ function showPage(id){
 }
 
 </script>
+/* GALLERY DATA */
+let images=[
+"img1.jpg","img2.jpg","img3.jpg",
+"img4.jpg","img5.jpg","img6.jpg",
+"img7.jpg","img8.jpg","img9.jpg",
+"img10.jpg","img11.jpg","img12.jpg"
+];
 
+let messages=[
+"Cutiepie💖","Reminiscence😄","Friends by heart😊",
+"Koluthipoduvom gang🔥😄","Forever college memories🌟","Initial Career journey💫",
+"Infosys days✨", "first bike❤️", "You with your love 💖",
+"TCS fam 🌟","Selenophile🌙","Breezy beach🌊"
+];
+
+/* LOAD GALLERY (MESSAGE FIRST → CLICK TO SEE IMAGE) */
+function loadGallery(){
+  let g=document.getElementById("gallery");
+  g.innerHTML="";
+
+  images.forEach((img,i)=>{
+    let card=document.createElement("div");
+    card.className="card";
+
+    let inner=document.createElement("div");
+    inner.className="inner";
+
+    inner.innerHTML=`
+      <div class="front">${messages[i]}</div>
+      <div class="back"><img src="${img}" width="100%" height="100%"></div>
+    `;
+
+    card.onclick=()=>{
+      card.classList.toggle("flip");
+
+      // go to letter page after last image clicked
+      setTimeout(()=>{
+        if(i===images.length-1){
+          showPage("letterPage");
+          createBalloons();
+        }
+      },800);
+    };
+
+    card.appendChild(inner);
+    g.appendChild(card);
+  });
+}
 </body>
 </html>
