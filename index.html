@@ -15,169 +15,99 @@ body {
   text-align: center;
 }
 
-/* HEADINGS NORMAL FONT */
-h1, h2 {
-  font-family: 'Poppins', sans-serif;
-}
+h1, h2 { font-family: 'Poppins', sans-serif; }
 
-/* PEACH BOX */
 .box {
   background: #ffe5d9;
   padding: 20px;
   border-radius: 15px;
   display: inline-block;
-  min-width: 300px;
 }
 
-/* HEARTS */
-.heart {
-  position: fixed;
-  top: -10px;
-  font-size: 14px;
-  animation: fall linear infinite;
-}
-@keyframes fall {
-  to { transform: translateY(110vh); }
-}
+/* pages */
+.page { display:none; height:100vh; padding:40px; }
+.active { display:block; }
 
-/* STARS */
-.star {
-  position: fixed;
-  width: 2px;
-  height: 2px;
-  background: white;
-  border-radius: 50%;
-  animation: twinkle 3s infinite;
-}
-@keyframes twinkle {
-  0%,100%{opacity:0.2;}
-  50%{opacity:1;}
-}
-
-/* BALLOONS */
-.balloon {
-  position: fixed;
-  bottom: -100px;
-  width: 30px;
-  height: 40px;
-  border-radius: 50%;
-  animation: rise 10s linear infinite;
-}
-.balloon::after {
-  content: "";
-  width: 2px;
-  height: 30px;
-  background: gray;
-  position: absolute;
-  left: 50%;
-  top: 40px;
-}
-@keyframes rise {
-  to { transform: translateY(-120vh); }
-}
-
-/* PAGES */
-.page {
-  display: none;
-  height: 100vh;
-  padding: 40px;
-}
-.active { display: block; }
-
-/* ENVELOPE */
-.envelope {
-  width: 160px;
-  height: 110px;
-  background: pink;
-  margin: 20px auto;
-  border-radius: 10px;
-  position: relative;
-}
-.envelope::before {
-  content: "❤️";
-  font-size: 28px;
-  position: absolute;
-  top: 35px;
-  left: 65px;
-}
-
-/* BUTTON */
+/* button */
 button {
   padding: 10px 20px;
-  border: none;
   background: #ff6f91;
   color: white;
+  border: none;
   border-radius: 20px;
   cursor: pointer;
 }
 
-/* OPTIONS */
+/* options */
 .option {
   margin: 10px;
   padding: 10px;
-  border-radius: 10px;
   background: #ffe5d9;
+  border-radius: 10px;
   cursor: pointer;
 }
 .correct { background: lightgreen; }
 
-/* GALLERY */
+/* gallery */
 .gallery {
   display: grid;
   grid-template-columns: repeat(3,1fr);
   gap: 10px;
 }
-.card { perspective: 1000px; }
+.card { perspective:1000px; }
 .inner {
-  position: relative;
-  width: 100%;
-  height: 120px;
-  transform-style: preserve-3d;
-  transition: 0.6s;
+  position:relative;
+  width:100%;
+  height:120px;
+  transform-style:preserve-3d;
+  transition:0.6s;
 }
-.card.flip .inner { transform: rotateY(180deg); }
+.card.flip .inner { transform:rotateY(180deg); }
 
-.front, .back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-}
-.back {
-  transform: rotateY(180deg);
-  background: #ffe5d9;
+.front,.back {
+  position:absolute;
+  width:100%;
+  height:100%;
+  backface-visibility:hidden;
   display:flex;
   align-items:center;
   justify-content:center;
+  background:#ffe5d9;
 }
+.back { transform:rotateY(180deg); }
 
-/* LETTER */
+/* letter */
 .letter {
-  background: #ffe5d9;
-  padding: 20px;
-  border-radius: 15px;
-  max-width: 500px;
+  background:#ffe5d9;
+  padding:20px;
+  border-radius:15px;
+  max-width:500px;
   margin:auto;
 }
 
-/* FIREWORK */
-.firework {
-  position: fixed;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  animation: explode 1s ease-out forwards;
+/* envelope */
+.envelope {
+  width:160px;
+  height:110px;
+  background:pink;
+  margin:20px auto;
+  border-radius:10px;
+  position:relative;
 }
-@keyframes explode {
-  from { transform: scale(1); opacity:1;}
-  to { transform: scale(15); opacity:0;}
+.envelope::before {
+  content:"❤️";
+  font-size:28px;
+  position:absolute;
+  top:35px;
+  left:65px;
 }
 </style>
 </head>
 
 <body>
 
-<audio src="music.mp3" autoplay loop></audio>
+<!-- AUDIO -->
+<audio id="bgMusic" src="music.mp3" loop></audio>
 
 <!-- PAGE 1 -->
 <div class="page active" id="page1">
@@ -204,54 +134,22 @@ button {
 <div class="page" id="letterPage">
   <div class="letter">
     <h2>A Special Letter💌</h2>
-    <p>(Hi chakaniii 😊💖<br><br>
-You’ve come so far in life, and it’s honestly amazing to see ✨<br><br>
-From your first milestones to everything you’re achieving now 🌟<br>
-you keep growing stronger and better every single day 💫 without giving up<br><br>
-Keep believing in yourself💖<br>
-Stay happy always❤️<br>
+    <p>
+Hi chakaniii 😊💖<br><br>
+You’ve come so far in life ✨<br><br>
+From your first milestones to everything now 🌟<br>
+you keep growing stronger every day 💫<br><br>
+Keep believing in yourself 💖<br>
+Stay happy always ❤️<br><br>
 With Love,<br>
-..........❤️)</p>
+........ ❤️
+    </p>
   </div>
 </div>
 
 <script>
 
-/* HEARTS */
-setInterval(()=>{
-  let h=document.createElement("div");
-  h.className="heart";
-  h.innerText="❤️";
-  h.style.left=Math.random()*100+"vw";
-  h.style.animationDuration=(4+Math.random()*4)+"s";
-  document.body.appendChild(h);
-  setTimeout(()=>h.remove(),8000);
-},400);
-
-/* STARS */
-for(let i=0;i<20;i++){
-  let s=document.createElement("div");
-  s.className="star";
-  s.style.left=Math.random()*100+"vw";
-  s.style.top=Math.random()*100+"vh";
-  s.style.animationDelay=Math.random()*3+"s";
-  document.body.appendChild(s);
-}
-
-/* BALLOONS */
-function createBalloons(){
-  for(let i=0;i<5;i++){
-    let b=document.createElement("div");
-    b.className="balloon";
-    b.style.left=Math.random()*100+"vw";
-    b.style.background=["#ff6f91","#ff9671","#ffc75f","#f9f871"][Math.floor(Math.random()*4)];
-    b.style.animationDuration=(8+Math.random()*5)+"s";
-    document.body.appendChild(b);
-    setTimeout(()=>b.remove(),12000);
-  }
-}
-
-/* QUESTIONS FIXED */
+/* QUESTIONS */
 let questions=[
 {
 q:"Can you guess the year you started working at Infosys (your first MNC)?",
@@ -259,12 +157,12 @@ options:["January 2018","October 2019","March 2020","December 2021"],
 correct:"October 2019"
 },
 {
-q:"So, tell me when did the love of your life arrived? Relax, I’m talking about your first bike😉",
+q:"So, when did the love of your life arrive? (your first bike😉)",
 options:["January 2020","August 2022","December 2020","April 2021"],
 correct:"April 2021"
 },
 {
-q:"Great! Now, can you guess the year you started your journey at TCS (your second MNC)?",
+q:"When did you join your second MNC (TCS)?",
 options:["September 2022","July 2021","Jan 2023","Dec 2022"],
 correct:"September 2022"
 }
@@ -272,12 +170,13 @@ correct:"September 2022"
 
 let index=0;
 
+/* START */
 function startGame(){
   showPage("quizPage");
-  createBalloons();
   loadQuestion();
 }
 
+/* TYPE TEXT */
 function typeText(text,el){
   el.innerHTML="";
   let i=0;
@@ -285,9 +184,10 @@ function typeText(text,el){
     el.innerHTML+=text[i];
     i++;
     if(i>=text.length) clearInterval(interval);
-  },35);
+  },30);
 }
 
+/* LOAD QUESTION */
 function loadQuestion(){
   let q=questions[index];
   typeText(q.q,document.getElementById("question"));
@@ -302,8 +202,6 @@ function loadQuestion(){
 
     btn.onclick=()=>{
       if(opt===q.correct){
-        firework();
-        createBalloons();
         next();
       } else {
         document.querySelectorAll(".option").forEach(o=>{
@@ -319,6 +217,7 @@ function loadQuestion(){
   });
 }
 
+/* NEXT */
 function next(){
   index++;
   if(index<questions.length){
@@ -326,30 +225,11 @@ function next(){
   } else {
     loadGallery();
     showPage("galleryPage");
-    createBalloons();
+    playMusic();
   }
 }
 
-function firework(){
-  for(let i=0;i<30;i++){
-    let f=document.createElement("div");
-    f.className="firework";
-    f.style.left=Math.random()*100+"vw";
-    f.style.top=Math.random()*100+"vh";
-    f.style.background=["#ff0","#ff6f91","#fff","#ffd700"][Math.floor(Math.random()*4)];
-    document.body.appendChild(f);
-    setTimeout(()=>f.remove(),1000);
-  }
-}
-
-/* PAGE SWITCH */
-function showPage(id){
-  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
-  document.getElementById(id).classList.add("active");
-}
-
-</script>
-/* GALLERY DATA */
+/* GALLERY */
 let images=[
 "img1.jpg","img2.jpg","img3.jpg",
 "img4.jpg","img5.jpg","img6.jpg",
@@ -358,13 +238,12 @@ let images=[
 ];
 
 let messages=[
-"Cutiepie💖","Reminiscence😄","Friends by heart😊",
-"Koluthipoduvom gang🔥😄","Forever college memories🌟","Initial Career journey💫",
-"Infosys days✨", "first bike❤️", "You with your love 💖",
-"TCS fam 🌟","Selenophile🌙","Breezy beach🌊"
+"Cutiepie💖","Memories😄","Friends😊",
+"College🔥","Fun times🌟","Journey💫",
+"Infosys✨","Bike❤️","Love💖",
+"TCS🌟","Moon🌙","Beach🌊"
 ];
 
-/* LOAD GALLERY (MESSAGE FIRST → CLICK TO SEE IMAGE) */
 function loadGallery(){
   let g=document.getElementById("gallery");
   g.innerHTML="";
@@ -384,18 +263,32 @@ function loadGallery(){
     card.onclick=()=>{
       card.classList.toggle("flip");
 
-      // go to letter page after last image clicked
-      setTimeout(()=>{
-        if(i===images.length-1){
+      if(i===images.length-1){
+        setTimeout(()=>{
           showPage("letterPage");
-          createBalloons();
-        }
-      },800);
+          playMusic();
+        },800);
+      }
     };
 
     card.appendChild(inner);
     g.appendChild(card);
   });
 }
+
+/* PAGE SWITCH */
+function showPage(id){
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+}
+
+/* MUSIC CONTROL */
+function playMusic(){
+  let audio=document.getElementById("bgMusic");
+  audio.play().catch(()=>{});
+}
+
+</script>
+
 </body>
 </html>
