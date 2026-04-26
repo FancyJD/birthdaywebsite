@@ -14,9 +14,11 @@ body {
   text-align: center;
 }
 
-.page { display:none; height:100vh; padding:40px; }
+/* pages */
+.page { display:none; padding:40px; }
 .active { display:block; }
 
+/* boxes */
 .box, .letter {
   background:#ffe5d9;
   padding:20px;
@@ -24,6 +26,7 @@ body {
   display:inline-block;
 }
 
+/* button */
 button {
   padding:10px 20px;
   background:#ff6f91;
@@ -33,6 +36,7 @@ button {
   cursor:pointer;
 }
 
+/* options */
 .option {
   margin:10px;
   padding:10px;
@@ -42,33 +46,56 @@ button {
 }
 .correct { background:lightgreen; }
 
+/* gallery grid */
 .gallery {
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:10px;
+  gap:12px;
+  margin-top:20px;
 }
+
+/* CARD */
 .card { perspective:1000px; }
+
 .inner {
   width:100%;
-  height:120px;
+  aspect-ratio: 4/5;   /* ✅ 4:5 ratio */
   position:relative;
   transform-style:preserve-3d;
   transition:0.6s;
 }
+
 .card.flip .inner { transform:rotateY(180deg); }
 
-.front,.back {
+.front, .back {
   position:absolute;
   width:100%;
   height:100%;
+  backface-visibility:hidden;
   display:flex;
   align-items:center;
   justify-content:center;
-  backface-visibility:hidden;
-  background:#ffe5d9;
+  border-radius:10px;
+  overflow:hidden;
 }
-.back { transform:rotateY(180deg); }
 
+.front {
+  background:#ffe5d9;
+  font-size:14px;
+  padding:10px;
+}
+
+.back {
+  transform:rotateY(180deg);
+}
+
+.back img {
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* envelope */
 .envelope {
   width:160px;
   height:110px;
@@ -84,6 +111,7 @@ button {
   left:65px;
   font-size:28px;
 }
+
 </style>
 </head>
 
@@ -119,8 +147,8 @@ button {
     <p>
 Hi chakaniii 😊💖<br><br>
 You’ve come so far ✨<br>
-Keep shining always 🌟<br><br>
-Stay happy ❤️<br><br>
+Keep growing stronger every day 🌟<br><br>
+Stay happy always ❤️<br><br>
 With Love 💖
     </p>
   </div>
@@ -131,19 +159,19 @@ With Love 💖
 /* QUESTIONS */
 let questions=[
 {
-q:"Can you guess the year you started working at Infosys (your first MNC)?",
-options:["January 2018","October 2019","March 2020","December 2021"],
-correct:"October 2019"
+q:"Can you guess when you started Infosys (your first MNC)?",
+options:["Jan 2018","Oct 2019","Mar 2020","Dec 2021"],
+correct:"Oct 2019"
 },
 {
-q:"When did you get your first bike? 😉",
-options:["January 2020","August 2022","December 2020","April 2021"],
-correct:"April 2021"
+q:"When did your first bike come into your life? 😉",
+options:["Jan 2020","Aug 2022","Dec 2020","Apr 2021"],
+correct:"Apr 2021"
 },
 {
 q:"When did you join TCS?",
-options:["September 2022","July 2021","Jan 2023","Dec 2022"],
-correct:"September 2022"
+options:["Sep 2022","Jul 2021","Jan 2023","Dec 2022"],
+correct:"Sep 2022"
 }
 ];
 
@@ -163,7 +191,7 @@ function typeText(text,el){
     el.innerHTML+=text[i];
     i++;
     if(i>=text.length) clearInterval(inter);
-  },30);
+  },25);
 }
 
 /* LOAD QUESTION */
@@ -208,7 +236,7 @@ function next(){
   }
 }
 
-/* GALLERY */
+/* GALLERY DATA */
 let images=[
 "img1.jpg","img2.jpg","img3.jpg",
 "img4.jpg","img5.jpg","img6.jpg",
@@ -223,12 +251,13 @@ let messages=[
 "TCS 🌟","Moon 🌙","Beach 🌊"
 ];
 
-let flippedCount=0;
+/* GALLERY LOGIC */
+let opened=new Set();
 
 function loadGallery(){
   let g=document.getElementById("gallery");
   g.innerHTML="";
-  flippedCount=0;
+  opened.clear();
 
   images.forEach((img,i)=>{
     let card=document.createElement("div");
@@ -239,17 +268,14 @@ function loadGallery(){
 
     inner.innerHTML=`
       <div class="front">${messages[i]}</div>
-      <div class="back"><img src="${img}" width="100%" height="100%"></div>
+      <div class="back"><img src="${img}"></div>
     `;
 
     card.onclick=()=>{
-      if(!card.classList.contains("flip")){
-        card.classList.add("flip");
-        flippedCount++;
-      }
+      card.classList.toggle("flip");
+      opened.add(i);
 
-      // 👉 go to letter after ALL images opened
-      if(flippedCount===images.length){
+      if(opened.size===images.length){
         setTimeout(()=>{
           showPage("letterPage");
         },1000);
